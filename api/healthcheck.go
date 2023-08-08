@@ -7,6 +7,9 @@ import (
 	echo "github.com/labstack/echo/v4"
 )
 
-func Healthcheck(c echo.Context) error {
+func (s *server) healthcheck(c echo.Context) error {
+	if err := s.db.Pool.Ping(); err != nil {
+		return err
+	}
 	return c.String(http.StatusOK, fmt.Sprintln("OK"))
 }

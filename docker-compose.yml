@@ -9,17 +9,17 @@ services:
     ports:
       - 9191:9191
     depends_on:
-      - mysql
+      - postgres
     volumes:
       - ./:/app
 
-  mysql:
-    image: mysql:latest
+  postgres:
+    image: postgres
     restart: always
-    environment:
-      MYSQL_DATABASE: 'banking-system'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+    container_name: postgres
     ports:
-      - 3306:3306
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: banking-system

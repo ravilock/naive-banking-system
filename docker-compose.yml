@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  web:
+    image: acim/go-reflex
+    environment:
+      - RACE_DETECTOR=1
+      - BUILD_ARGS=./cmd/banking-system/main.go
+    container_name: goduit-app
+    ports:
+      - 9191:9191
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/app
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'banking-system'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - 3306:3306
